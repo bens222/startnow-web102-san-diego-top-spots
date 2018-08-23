@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>San Diego Top Spots</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        #map {
+            height: 100%;
+            height: 500px;
+            width: 500px;
+        };
+    </style>
+</head>
+
+<body>
+    <!-- Write your markup here -->
+    <h1>San Diego Top Spots</h1>
+    <table id="table">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Link</th>
+        </tr>
+    </table>
+    
+    <!-- Don't forget to add your <script> tag here -->
+    <script src="https://maps.googleapis.com/maps/api/js?sensor=false?key=AIzaSyBfEeM0M9DJrVLm-LiAdFhJpaAaBkBGiQk&callback=initMap"
+    async defer></script>
+    <script src="main.js"></script>
+  
+
+    <div id="map"></div>
+    <script>
+        //console.log(latitudeOut, longitudeOut);
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 32.713227, lng: -117.156890 },
+                zoom: 11
+            });
+            var myJson;
+            // var latitudeOut = 32.713227;
+            // var longitudeOut = -117.156890;
+
+            $.getJSON("data.json", function(topspots){ 
+                // myJson = [{},{},...{}]
+                $.each(topspots, function(index, topspot) {
+                    // value = { name: , ...}
+                    var latitudeIn = topspot.location[0];
+                    var longitudeIn = topspot.location[1];
+                    // latitudeIn = latitudeOut;
+                    // longitudeIn = longitudeOut;
+                    var marker = new google.maps.Marker({
+                        position: {lat: latitudeIn, lng: longitudeIn},
+                        map: map,
+                        title: 'Hello World!'
+                        });
+                    var description = topspot.description
+                });
+            });
+        };
+  
+        
+                
+        </script>
+</body>
+
+</html>
